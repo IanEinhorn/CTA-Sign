@@ -5,10 +5,10 @@ import math
 import logging
 import sys
 import signal
+from conf import RT, STOP
 
-
-RT = '49'
-STOP = '8417'
+#RT = '49'
+#STOP = '8417'
 
 class CTASign(object):
     def __init__(self,logger=None):
@@ -40,7 +40,11 @@ class CTASign(object):
 
     def run(self):
         while(True):
-            self.runOnce()
+            try:
+                self.runOnce()
+            except:
+                self.stop()
+                break
     
     def updateBuses(self):
         self.logger.info('Updating Buses')
@@ -65,7 +69,10 @@ class CTASign(object):
 
     def handleSignal(self,signum,frame):
         self.running = False
-             
+    
+    def stop(self):
+        self.matrix.blankDisplay()
+        
 
 if __name__ == '__main__':
     print 'Running Matrix'

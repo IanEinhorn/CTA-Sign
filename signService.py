@@ -18,6 +18,7 @@ class BusSign(Service):
         self.LEDsign = CTASign(logger=self.logger )
         while not self.got_sigterm():
             self.LEDsign.runOnce()
+        self.LEDsign.stop()
 
 if __name__ == '__main__':
     import sys
