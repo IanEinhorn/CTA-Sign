@@ -2,7 +2,7 @@ import urllib2
 import json
 #from APIKEY import KEY
 BASE_URL = 'http://ctabustracker.com/bustime/api/v2/'
-KEY = 'Insert API Key Here' 
+KEY = '2LGCXJaWBMmTGGP6bvwBsRqfM' 
 
 class CTA(object):
     '''Handles all Bus API'''
