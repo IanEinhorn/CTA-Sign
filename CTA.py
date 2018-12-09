@@ -23,7 +23,7 @@ class CTA(object):
         return json.loads(f.read())
     
     def getRoutes(self):
-        url = self.BuildURL('getdirections','rt=74')
+        url = self.BuildURL('getroutes','rt=N55')
         return self.makeRequest(url)
     
     def getDirections(self,rt):
@@ -42,9 +42,10 @@ class CTA(object):
 
 if __name__ == '__main__':
     busTime=CTA()
-    resp = busTime.getPredictions('74','1317','4')
-    for bus in resp[u'bustime-response'][u'prd']:
+    resp = busTime.getPredictions('49','8417','10')
+    print resp
+    ''' for bus in resp[u'bustime-response'][u'prd']:
         print 'Route',bus[u'rt'], 'Towards' ,
         print bus[u'des'], 'will arive in',
         print bus[u'prdctdn'], 'minutes'
-
+    '''

@@ -4,11 +4,11 @@ import time
 import math
 import logging
 import sys
+import signal
 
 
-
-RT = '74'
-STOP = '1317'
+RT = '49'
+STOP = '8417'
 
 class CTASign(object):
     def __init__(self,logger=None):
@@ -16,26 +16,31 @@ class CTASign(object):
         self.matrix = Sign()
         self.pages=0
         self.buses=[]
+        self.running = True
         if logger:
            self.logger = logger
         else:
              self.logger = logging
+        
+
+    def runOnce(self):
+        self.updateBuses()
+        if self.pages == 1:
+            self.updateDisplay(self.buses)
+            time.sleep(60)
+        elif self.pages == 2:
+            self.updateDisplay(self.buses[:2])
+            time.sleep(30)
+            self.updateDisplay(self.buses[2:])
+            time.sleep(30)
+        else:
+            time.sleep(60)
+            self.display()
+
 
     def run(self):
-        while():
-            self.updateBuses()
-            
-            if self.pages == 1:
-                self.updateDisplay(self.buses)
-                time.sleep(60)
-            elif self.pages == 2:
-                self.updateDisplay(self.buses[:2])
-                time.sleep(30)
-                self.updateDisplay(self.buses[2:])
-                time.sleep(30)
-            else:
-                time.sleep(60)
-                self.display()
+        while(True):
+            self.runOnce()
     
     def updateBuses(self):
         self.logger.info('Updating Buses')
@@ -57,6 +62,10 @@ class CTASign(object):
         else:
             self.matrix.makeBus(None,None)
         self.matrix.display()
+
+    def handleSignal(self,signum,frame):
+        self.running = False
+             
 
 if __name__ == '__main__':
     print 'Running Matrix'

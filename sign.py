@@ -35,10 +35,6 @@ class Sign(object):
         graphics.DrawLine(self.canvas, 0,15,63,15,self.outlineColor)
         graphics.DrawLine(self.canvas, 0, 0, 0,15,self.outlineColor)
         graphics.DrawLine(self.canvas, 63,0,63,15,self.outlineColor)
-        
-        topBus = fakebus
-        botBus = fakebus
-        
         #draw Top Bus 
         if topBus:
             print 'making bus'
