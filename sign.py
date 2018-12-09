@@ -1,14 +1,10 @@
 import time
 import sys 
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
-
+from conf import FONT
 
 fakebus = {u'rt': u'74', u'rtdd': u'74', u'tmstmp': u'20180629 22:51', u'vid': u'8210', u'stpnm': u'Fullerton & Hamlin', u'des': u'Halsted', u'dstp': 21741, u'zone': u'', u'tablockid': u'74 -853', u'prdctdn': u'23', u'rtdir': u'Eastbound', u'tatripid': u'140', u'typ': u'A', u'dly': False, u'prdtm': u'20180629 23:14', u'stpid': u'1317'}
 FONT_FILE= '/home/pi/CTAsign/font/4x6.bdf'
-#TEXT_COLOR = (53,204,51)
-TEXT_COLOR = (0,128,255)
-BG_COLOR = (0,0,0)
-OUTLINE_COLOR = (128,128,128)
 
 class Sign(object):
     #Handles LED Maxtix Display taking in 2 buses and displaying them on the screen    
@@ -22,7 +18,7 @@ class Sign(object):
         self.outlineColor = graphics.Color(128,128,128)
         self.textColor = graphics.Color(0,128,255)
         self.font = graphics.Font()
-        self.font.LoadFont(FONT_FILE)
+        self.font.LoadFont(FONT)
            
 
     def makeBus(self,topBus,botBus):
@@ -49,7 +45,11 @@ class Sign(object):
            
     def display(self):
         self.canvas = self.matrix.SwapOnVSync(self.canvas)     
-      
+    
+
+    def blankDisplay(self):
+        self.canvas = self.matrix.CreateFrameCanvas()
+        self.display()
 
 def testMatrix():
     mat = Sign()
