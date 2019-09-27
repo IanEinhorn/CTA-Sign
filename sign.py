@@ -34,7 +34,11 @@ class Sign(object):
         #draw Top Bus 
         if topBus:
             print 'making bus'
-            busString = '{} {}: {}'.format(topBus[u'rt'],topBus[u'des'],topBus[u'prdctdn'])
+            if len(topBus[u'des']) > 8:
+                topDest = topBus[u'des'][:7]
+            else:
+                topDest = topBus[u'des']
+            busString = '{} {}: {}'.format(topBus[u'rt'],topDest,topBus[u'prdctdn'])
             graphics.DrawText(self.canvas,self.font,2,7,self.textColor,busString)
         #Draw Bottom Bus
         if botBus:
@@ -65,4 +69,4 @@ def testMatrix():
 if __name__=='__main__':
     print 'Testing Matrix'
     testMatrix()
-    
+   

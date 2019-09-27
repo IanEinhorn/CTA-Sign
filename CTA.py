@@ -41,8 +41,11 @@ class CTA(object):
 
 if __name__ == '__main__':
     busTime=CTA()
-    resp = busTime.getPredictions('49','8417','10')
-    print resp
+    resp = busTime.getStops('52', 'Southbound')
+    #resp = busTime.getPredictions('49','8417','10')
+    for stop in resp[u'bustime-response'][u'stops']:    
+        print stop[u'stpnm']+': '+stop[u'stpid']
+
     ''' for bus in resp[u'bustime-response'][u'prd']:
         print 'Route',bus[u'rt'], 'Towards' ,
         print bus[u'des'], 'will arive in',
